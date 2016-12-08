@@ -148,8 +148,7 @@ public class Login extends JFrame {
 				try {
 					Server1 s = new Server1();
 					Server1.main(null);
-					
-					
+					setVisible(false);
 					//Server1.main(null);
 				} catch (IOException | AWTException e) {
 					// TODO Auto-generated catch block
