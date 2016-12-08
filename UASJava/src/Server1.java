@@ -1,4 +1,5 @@
 import java.awt.AWTException;
+import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.SliderUI;
 
 import org.imgscalr.Scalr;
@@ -48,7 +50,8 @@ public class Server1 extends JFrame {
 	static String namaDosen;
 	static String mataKuliah;
 	static String title;
-	
+	static JFrame theGUI;
+	private JPanel contentPane;
 	
 	public static void setDosen(){
 		namaDosen=Login.namaDosen;
@@ -63,24 +66,33 @@ public class Server1 extends JFrame {
 		setDosen();
 		//JOptionPane.showMessageDialog(null,namaDosen+" "+mataKuliah);
 		Robot robot = new Robot();
-		JFrame theGUI = new JFrame();
-		theGUI.setLayout(null);
+		
+		setTitle("Lecture Screen Broadcast");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0,0,1280,720);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		contentPane=new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		//theGUI = new JFrame();
+		//theGUI.setLayout(null);
 
 		pic.setBounds(50, 150, 640, 480);
 		pic1[1] = new JLabel();
 		pic1[2] = new JLabel();
 		pic1[1].setBounds(25, 40, 800, 600);
 		pic1[2].setBounds(700, 40, 800, 600);
-		theGUI.setTitle("Lecture Broadcast");
-		theGUI.setSize(1280, 720);
-		theGUI.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		//theGUI.setTitle("Lecture Broadcast");
+		//theGUI.setSize(1280, 720);
+		//theGUI.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		//theGUI.setUndecorated(true);
-		theGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//theGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		theGUI.setVisible(true);
-		theGUI.add(pic);
-		theGUI.add(pic1[1]);
-		theGUI.add(pic1[2]);
+		//theGUI.setVisible(true);
+		//theGUI.add(pic);
+		//theGUI.add(pic1[1]);
+		//theGUI.add(pic1[2]);
 		
 pic1[2].addMouseListener(new MouseListener() {
 			
@@ -228,8 +240,12 @@ pic1[2].addMouseListener(new MouseListener() {
 		});
 		button.setBounds(20, 20, 100, 40);
 		button1.setBounds(140, 20, 150, 40);
-		theGUI.add(button);
-		theGUI.add(button1);
+		contentPane.add(button);
+		contentPane.add(button1);
+		contentPane.add(pic1[1]);
+		contentPane.add(pic1[2]);
+				
+		
 	
 
 		System.out.println("The server is running on port" + PORT);
@@ -237,26 +253,12 @@ pic1[2].addMouseListener(new MouseListener() {
 		//portServer();
 		//statServer();
 		
-		ServerSocket ListenerSoPort = new ServerSocket(8999);
-		System.out.println(ListenerSoPort);
-		try {
-			while (true) {
-				Socket soPort = ListenerSoPort.accept();
-				Thread tSPort = new portServer(soPort);
-				tSPort.start();
-				//System.out.println("Active client"+activeClient);
-
-			}
-		} finally {
-			ListenerSoPort.close();
-		}
-		
 	}
 	
 	
 
 	public static void main(String[] args) throws IOException, AWTException {
-		// TODO Auto-generated method stub
+		/*// TODO Auto-generated method stub
 		setDosen();
 		//JOptionPane.showMessageDialog(null,namaDosen+" "+mataKuliah);
 		Robot robot = new Robot();
@@ -353,12 +355,12 @@ pic1[2].addMouseListener(new MouseListener() {
 				// TODO Auto-generated method stub
 				stat = "0";
 				ioWrite=false;
-				/*try {
+				try {
 					startServer();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}*/
+				}
 			}
 		});
 
@@ -376,12 +378,12 @@ pic1[2].addMouseListener(new MouseListener() {
 					e2.printStackTrace();
 				}
 				// TODO Auto-generated method stub
-				/*
+				
 				 * JLabel _lbl = new JLabel("test"); x = x + n;
 				 * _lbl.setBounds(x, 150, 320, 240); theGUI.add(_lbl);
 				 * theGUI.validate(); theGUI.repaint(); // theGUI.pack(); n =
 				 * 320; // x=x+n; System.out.println(x);
-				 */
+				 
 				
 				Timer timer = new Timer();
 
@@ -400,16 +402,16 @@ pic1[2].addMouseListener(new MouseListener() {
 								if(ioWrite==true){
 								BufferedImage capture1 = robot.createScreenCapture(screenact);
 								
-								ImageIO.write(capture1, "png",ss.getOutputStream() /*new File("Image.png")*/);
+								ImageIO.write(capture1, "png",ss.getOutputStream() new File("Image.png"));
 								}
-								/*byte[] mybytearray = new byte[1024];
+								byte[] mybytearray = new byte[1024];
 							    InputStream is = ss.getInputStream();
 							    FileOutputStream fos = new FileOutputStream("s.pdf");
 							    BufferedOutputStream bos = new BufferedOutputStream(fos);
 							    int bytesRead = is.read(mybytearray, 0, mybytearray.length);
 							    bos.write(mybytearray, 0, bytesRead);
 							    bos.close();
-							    ss.close();*/
+							    ss.close();
 							}
 
 						} catch (IOException e1) {
@@ -429,9 +431,43 @@ pic1[2].addMouseListener(new MouseListener() {
 		theGUI.add(button1);
 	
 
-		System.out.println("The server is running on port" + PORT);
+		System.out.println("The server is running on port" + PORT);*/
+		/*EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Server1 s = new Server1();
+					s.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});*/
 		
-		portServer();
+		Server1 s = new Server1();
+		s.setVisible(true);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+			//portServer();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					portServer();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		//portServer();
 		//statServer();
 		
 		

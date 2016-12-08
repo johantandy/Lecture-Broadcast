@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Panel;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -51,6 +53,7 @@ public class Login extends JFrame {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the frame.
@@ -136,14 +139,18 @@ public class Login extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				/*try {
+/*				try {
 					s=new Server1();
 				} catch (IOException | AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
 				try {
+					Server1 s = new Server1();
 					Server1.main(null);
+					
+					
+					//Server1.main(null);
 				} catch (IOException | AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
